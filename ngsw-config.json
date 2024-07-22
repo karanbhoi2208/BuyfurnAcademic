@@ -3,7 +3,7 @@
   "index": "/index.html",
   "assetGroups": [
     {
-      "name": "app",
+      "name": "FrontEnd",
       "installMode": "prefetch",
       "resources": {
         "files": [
@@ -23,73 +23,6 @@
         "files": [
           "/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
-      }
-    }
-  ],
-  "dataGroups": [
-    {
-      "name": "api-products",
-      "urls": [
-        "/api/products",
-        "/api/products/*"
-      ],
-      "cacheConfig": {
-        "strategy": "performance",
-        "maxSize": 100,
-        "maxAge": "1d",
-        "timeout": "10s"
-      }
-    },
-    {
-      "name": "api-categories",
-      "urls": [
-        "/api/categories",
-        "/api/categories/*"
-      ],
-      "cacheConfig": {
-        "strategy": "performance",
-        "maxSize": 50,
-        "maxAge": "1d",
-        "timeout": "10s"
-      }
-    },
-    {
-      "name": "api-users",
-      "urls": [
-        "/api/users",
-        "/api/users/*"
-      ],
-      "cacheConfig": {
-        "strategy": "performance",
-        "maxSize": 50,
-        "maxAge": "1d",
-        "timeout": "10s"
-      }
-    },
-    {
-      "name": "api-orders",
-      "urls": [
-        "/api/orders",
-        "/api/orders/*"
-      ],
-      "cacheConfig": {
-        "strategy": "performance",
-        "maxSize": 50,
-        "maxAge": "1d",
-        "timeout": "10s"
-      }
-    },
-    {
-      "name": "api-reviews",
-      "urls": [
-        "/api/reviews",
-        "/api/reviews/*"
-      ],
-      "cacheConfig": {
-        "strategy": "performance",
-        "maxSize": 50,
-        "maxAge": "1d",
-        "timeout": "10s"
       }
     }
   ]
