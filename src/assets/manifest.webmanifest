@@ -5,6 +5,7 @@
   "background_color": "#fafafa",
   "display": "standalone",
   "start_url": "./",
+  "scop": "/",
   "icons": [
     {
       "src": "icons/icon-72x72.png",
