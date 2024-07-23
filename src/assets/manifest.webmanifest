@@ -1,10 +1,11 @@
 {
-  "name": "FrontEnd",
-  "short_name": "FrontEnd",
+  "name": "BuyFurn",
+  "short_name": "BuyFurn",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
   "start_url": "./",
+  "scop": "/",
   "icons": [
     {
       "src": "icons/icon-72x72.png",
