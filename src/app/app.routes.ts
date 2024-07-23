@@ -52,5 +52,5 @@ export const routes: Routes = [
             { path: 'product/:id', component: ProductDetailComponent },
             { path: 'editproduct/:id', component: EditProductComponent }
         ]
-    }
+    },
 ];
