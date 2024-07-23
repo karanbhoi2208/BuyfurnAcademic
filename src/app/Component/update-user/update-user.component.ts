@@ -34,7 +34,6 @@ export class UpdateUserComponent implements OnInit {
   };
 
   onSubmit() {
-    debugger
     if (this.selectedFile) {
       if (this.user && this.user.email) {
 
