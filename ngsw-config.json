@@ -28,18 +28,6 @@
   ],
   "dataGroups": [
     {
-      "name": "api-products",
-      "urls": [
-        "/api/*"
-      ],
-      "cacheConfig": {
-        "strategy": "performance",
-        "maxSize": 100,
-        "maxAge": "1d",
-        "timeout": "10s"
-      }
-    },
-    {
       "name": "api-no-cache",
       "urls": [
         "/api/login"
@@ -49,6 +37,18 @@
         "maxSize": 0,
         "maxAge": "0s",
         "timeout": "5s"
+      }
+    },
+    {
+      "name": "api-products",
+      "urls": [
+        "/api/*"
+      ],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 100,
+        "maxAge": "1d",
+        "timeout": "10s"
       }
     }
   ]
