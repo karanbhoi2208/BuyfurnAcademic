@@ -28,6 +28,18 @@
   ],
   "dataGroups": [
     {
+      "name": "api-no-cache",
+      "urls": [
+        "/api/login"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 0,
+        "maxAge": "0s",
+        "timeout": "5s"
+      }
+    },
+    {
       "name": "api-products",
       "urls": [
         "/api/*"
