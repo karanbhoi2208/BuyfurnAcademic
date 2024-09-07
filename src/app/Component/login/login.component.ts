@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../Service/user.service';
+import { UserAuthService } from '../../Service/user-auth.service';
 
 
 @Component({
@@ -20,27 +21,28 @@ export class LoginComponent {
 
   loginError: any;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router, private userAuthService: UserAuthService) { }
 
   login(): void {
 
     let authString = 'Basic ' + btoa(this.username.trim() + ':' + this.password);
-    if (typeof sessionStorage !== 'undefined') {
-      sessionStorage.setItem('basicauth', authString);
-    }
+    this.userAuthService.setBasicAuthString(authString);
+
+
 
     this.userService.login().subscribe(
       response => {
         const roles = response.roles;
+
+        this.userAuthService.setRoles(roles);
+
         if (roles.includes("ADMIN")) {
-          console.log(roles);
           this.router.navigate(['/admin']);
         }
         else {
           this.router.navigate([''])
-          console.log(roles);
-
         }
+
       },
       error => {
         console.error('Login failed', error);
@@ -50,6 +52,6 @@ export class LoginComponent {
 
 
   forgotPassword() {
-    throw new Error('Method not implemented.');
+    alert("Method not implement")
   }
 }
