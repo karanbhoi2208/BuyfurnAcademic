@@ -1,0 +1,50 @@
+<div class="filter-buttons mb-3 btn-group btn-group-toggle">
+    <button class="btn btn-secondary active" (click)="getOrderDetails('all')">All</button>
+    <button class="btn btn btn-secondary" (click)="getOrderDetails('Placed')">Placed</button>
+    <button class="btn btn-secondary" (click)=" getOrderDetails('Delivered')">Delivered</button>
+</div>
+
+
+<div class="table-responsive">
+
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+                <th>Action</th>
+                <th>OrderId</th>
+                <th>Contact</th>
+                <th>Email</th>
+                <th>Shipping Address</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Order Status</th>
+                <th>Date-Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let order of orderDetails">
+                <th>
+                    <button class="btn btn-outline-success" (click)="markAsDeliverd(order.orderId)"
+                        *ngIf="!orderIsDelivered(order.orderId)">
+                        Mark as Delivered
+                    </button>
+                </th>
+
+                <td>{{order.orderId}}</td>
+                <td>{{order.contact}}</td>
+                <td>{{order.user.email}}</td>
+                <td width="25%">
+                    {{order.address.address}},
+                    {{order.address.city}},
+                    {{order.address.state}} -
+                    {{order.address.pincode}}
+                </td>
+                <td>{{order.product.title}}</td>
+                <td>₹{{order.product.price}}</td>
+                <td>{{order.orderStatus}}</td>
+                <td>{{ order.createdDate | date: 'dd/MM/yyyy, h:mm a':'IST' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
