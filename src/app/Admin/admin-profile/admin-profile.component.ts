@@ -1,6 +1,7 @@
 import { NgClass, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserAuthService } from '../../Service/user-auth.service';
 
 @Component({
   selector: 'app-admin-profile',
@@ -12,7 +13,8 @@ import { Router } from '@angular/router';
 export class AdminProfileComponent {
   isProfileModalOpen = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private userAuthService: UserAuthService) { }
+
   toggleProfileModal() {
     this.isProfileModalOpen = !this.isProfileModalOpen;
   }
@@ -21,13 +23,22 @@ export class AdminProfileComponent {
     this.isProfileModalOpen = false;
   }
 
-  logout() {
-    if (typeof sessionStorage !== 'undefined') {
-      sessionStorage.removeItem('username');
-      sessionStorage.removeItem('basicauth');
-      this.router.navigate(['/']);
+  // logout() {
+  //   if (typeof sessionStorage !== 'undefined') {
+  //     sessionStorage.removeItem('username');
+  //     sessionStorage.removeItem('basicauth');
+  //     this.router.navigate(['/']);
 
-    }
+  //   }
+
+  // }
+
+  logout() {
+
+    this.userAuthService.clearLocalStorage()
+    this.router.navigate(['/']);
+
+
 
   }
 
