@@ -18,6 +18,13 @@ img.rounded-circle {
     padding: 5px;
 }
 
+img {
+    border-radius: 50%;
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+}
+
 h1 {
     margin-bottom: 20px;
     text-align: center;

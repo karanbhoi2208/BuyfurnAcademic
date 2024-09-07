@@ -4,6 +4,7 @@ import { NgIf } from '@angular/common';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 import { filter } from 'rxjs';
+import { UserAuthService } from '../../Service/user-auth.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -19,30 +20,27 @@ export class UserProfileComponent implements OnInit {
   firstPosition: string | null = null;
   user: any;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private userAuthService: UserAuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadUserData();
   }
   loadUserData() {
 
-    if (sessionStorage.getItem("basicauth")) {
-      this.userService.login().subscribe(
-        response => {
-          this.user = response;
-          this.hasProfile = this.user.userImage && this.user.userImage !== "null";
-          sessionStorage.setItem("username", this.user.email);
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    }
-
+    this.userService.login().subscribe(
+      response => {
+        this.user = response;
+        this.hasProfile = this.user.userImage && this.user.userImage !== "null";
+        sessionStorage.setItem("username", this.user.email);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   logout() {
-    sessionStorage.removeItem('basicauth');
+    this.userAuthService.clearLocalStorage()
     this.router.navigate(['/']);
   }
 
