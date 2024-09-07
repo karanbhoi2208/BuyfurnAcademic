@@ -17,19 +17,28 @@ import { error } from 'console';
 
 export class ProductComponent implements OnInit {
 
-
   products: any = []
   loading: boolean = true;
 
+  pageNumber: number = 0;
+  searchKey: string = '';
+  showLoadButton: boolean = false;
   constructor(private productService: ProductService) { }
   ngOnInit(): void {
-    this.loadProducts()
+    this.getAllProducts()
   }
 
-  loadProducts() {
-    this.productService.getAllProducts().subscribe(response => {
-      this.products = response;
-      this.loading = false;
+  getAllProducts() {
+    this.loading = true
+    this.productService.getAllProducts(this.pageNumber, this.searchKey).subscribe(response => {
+      if (response.length == 12) {
+        this.showLoadButton = true;
+      }
+      else {
+        this.showLoadButton = false;
+      }
+      this.products = [...this.products, ...response];
+      this.loading = false
     },
       error => {
         console.log(error);
@@ -40,15 +49,33 @@ export class ProductComponent implements OnInit {
   deleteProduct(id: any) {
     this.productService.deleteProductById(id).subscribe(
       response => {
-        this.loadProducts()
-        Swal.fire("Product deleted!");
-      }, error => {
-        Swal.fire('Error adding product. Try again..');
-      });
-  }
-  editProduct(id: any) {
-    console.log(id);
 
+        Swal.fire("Product deleted!");
+
+        this.products = this.products.filter((product: any) => product.id !== id);
+      }, error => {
+        console.log(error);
+
+      });
+
+  }
+
+  loadMoreProducts() {
+
+    this.pageNumber++;
+    this.getAllProducts()
+
+  }
+
+  onSearch(event: Event) {
+    event.preventDefault();
+    this.pageNumber = 0; // Reset page number for new search
+    this.products = []; // Clear current products
+    this.getAllProducts();
+  }
+
+  onSearchChange(searchKey: string) {
+    this.searchKey = searchKey;
   }
 
 
