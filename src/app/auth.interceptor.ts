@@ -2,9 +2,9 @@ import { HttpInterceptorFn } from '@angular/common/http';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
-  if (typeof sessionStorage !== 'undefined') {
+  if (typeof localStorage !== 'undefined') {
 
-    const authString = sessionStorage.getItem('basicauth');
+    const authString = localStorage.getItem('basicAuth');
     if (authString) {
       const clonedRequest = req.clone({
         setHeaders: {
