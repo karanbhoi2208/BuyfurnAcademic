@@ -1,65 +1,57 @@
-import { NgFor, NgIf } from '@angular/common';
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ProductService } from '../../Service/product.service';
-import { response } from 'express';
-import { error } from 'console';
-// src/app/models/product.model.ts
+import { LoadingComponent } from '../loading/loading.component';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-product-section',
   standalone: true,
-  imports: [NgFor, RouterLink, NgIf],
+  imports: [RouterLink, LoadingComponent, NgFor, NgIf],
   templateUrl: './product-section.component.html',
   styleUrl: './product-section.component.css'
 })
-export class ProductSectionComponent {
+export class ProductSectionComponent implements OnChanges {
+  isLoading: boolean = false;
+  pageNumber: number = 0;
+  showLoadButton: boolean = false;
+  nofiltereditem: boolean = false;
+  products: any[] = [];
   @Input() filterText: string = '';
 
-  loading: boolean = true;
-  nofiltereditem: boolean = false;
   constructor(private productService: ProductService) { }
-  filteredProducts: any = [];
-
-  products: any = [];
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['filterText']) {
-      this.filterProducts();
+      this.pageNumber = 0;
+      this.products = [];
+      this.getAllProducts();
     }
   }
 
-  filterProducts() {
-    if (this.filterText) {
-      console.log(this.filterText);
-      this.filteredProducts = this.products.filter((product: any) =>
-        product.title.toLowerCase().includes(this.filterText.toLowerCase())
-      );
-
-      if (this.filteredProducts.length === 0) {
-        console.log("No items");
-        this.nofiltereditem = true;
-      }
-
-    } else {
-      this.filteredProducts = this.products;
-      this.nofiltereditem = false;
-    }
-  }
-
-  ngOnInit() {
-    this.productService.getAllProducts().subscribe(
+  getAllProducts() {
+    this.isLoading = true;
+    this.productService.getAllProducts(this.pageNumber, this.filterText).subscribe(
       (response) => {
-        this.products = response;
-        this.filteredProducts = this.products;
-        this.filterProducts(); // Apply initial filtering if filterText is set
-        this.loading = false
+        if (response.length > 0) {
+          this.products = [...this.products, ...response];
+          this.showLoadButton = response.length === 12;
+          this.nofiltereditem = false;
+        } else {
+          this.showLoadButton = false;
+          this.nofiltereditem = this.pageNumber === 0;
+        }
+        this.isLoading = false;
       },
       (error) => {
         console.error('Error fetching products', error);
-        this.loading = false
-
+        this.isLoading = false;
       }
     );
+  }
+
+  loadMoreProducts() {
+    this.pageNumber++;
+    this.getAllProducts();
   }
 }
