@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../Service/user.service';
+import { UserAuthService } from '../../Service/user-auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,32 +12,37 @@ import { UserService } from '../../Service/user.service';
 })
 export class NavbarComponent {
 
-  constructor(private userService: UserService, private router: Router) { }
+
+  constructor(private router: Router, private userAuthService: UserAuthService) { }
+
+
 
   navigateToProfileOrLogin(): void {
-
-    if (sessionStorage.getItem("basicauth") != null) {
-      this.userService.login().subscribe(
-        response => {
-          const roles = response.roles;
-          if (roles.includes("ADMIN")) {
-            console.log(roles);
-            this.router.navigate(['/admin']);
-          }
-          else if (roles.includes("USER")) {
-            this.router.navigate(['/userdashbord'])
-          }
-
-        },
-        error => {
-          console.error('Login failed', error);
-        }
-      );
-    } else {
+    const isLoggedIn = this.userAuthService.isLoggedIn();
+    if (isLoggedIn) {
+      if (this.userAuthService.getRoles().includes("ADMIN")) {
+        this.router.navigate(['/admin']);
+      }
+      else if (this.userAuthService.getRoles().includes("USER")) {
+        this.router.navigate(['/userdashbord'])
+      }
+    }
+    else {
       this.router.navigate(['/login'])
+
     }
 
   }
 
+  navigateToCartOrLogin() {
+
+
+    const isLoggedIn = this.userAuthService.isLoggedIn();
+    if (isLoggedIn) {
+      this.router.navigate(['/cart'])
+    } else {
+      this.router.navigate(['/login'])
+    }
+  }
 }
 
