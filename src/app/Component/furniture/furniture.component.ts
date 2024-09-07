@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ProductSectionComponent } from '../products-all-section/product-section.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-furniture',
@@ -15,7 +16,8 @@ export class FurnitureComponent {
   categories: string[] = ['All', 'Living Room', 'Bedroom', 'Dining Room', 'Office Furniture', 'Outdoor Furniture', 'Storage Solutions'];
 
   onCategoryChange() {
-    throw new Error('Method not implemented.');
+    console.log("catergory change");
+
   }
 
   filterText: string = '';
