@@ -19,38 +19,87 @@ import { EditProductComponent } from './Admin/edit-product/edit-product.componen
 import { DashboardCardsComponent } from './Component/dashboard-cards/dashboard-cards.component';
 import { UserProfileComponent } from './Component/user-profile/user-profile.component';
 import { UpdateUserComponent } from './Component/update-user/update-user.component';
+import { BuyProductComponent } from './Component/buy-product/buy-product.component';
+import { BuyProductResolverService } from './buy-product-resolver.service';
+import { OrderConfirmationComponent } from './Component/order-confirmation/order-confirmation.component';
+import { authGuard } from './Auth/auth.guard';
+import { ForbiddenComponent } from './Component/forbidden/forbidden.component';
+import { OrdersComponent } from './Admin/orders/orders.component';
+import { MyOrdersComponent } from './Component/my-orders/my-orders.component';
+import { orderGuardGuard } from './Auth/order-guard.guard';
 
 export const routes: Routes = [
     {
-        path: '', component: MainContaierComponent, children: [
+        path: '',
+        component: MainContaierComponent,
+        children: [
             { path: '', component: HomeComponent },
             { path: 'slider', component: SliderComponent },
             { path: 'contact', component: ContactUsComponent },
             { path: 'about', component: AboutUsComponent },
             { path: 'furniture', component: FurnitureComponent },
             { path: 'product/:id', component: ProductDetailComponent },
-            { path: 'cart', component: CartComponent },
-            { path: 'userdashbord', component: DashboardCardsComponent },
-            { path: 'userprofile', component: UserProfileComponent },
+            { path: 'forbidden', component: ForbiddenComponent },
+            {
+                path: 'cart',
+                component: CartComponent,
+                canActivate: [authGuard],
+                data: { roles: ['USER'] }
+            },
+            {
+                path: 'userdashbord',
+                component: DashboardCardsComponent,
+                canActivate: [authGuard],
+                data: { roles: ['USER'] }
+            },
+            {
+                path: 'userprofile',
+                component: UserProfileComponent,
+                canActivate: [authGuard],
+                data: { roles: ['USER'] }
+            },
             { path: 'updateuser', component: UpdateUserComponent },
-
-
+            {
+                path: 'orderplaced',
+                component: OrderConfirmationComponent,
+                canActivate: [authGuard, orderGuardGuard],
+                data: { roles: ['USER'] }
+            },
+            {
+                path: 'buyproduct',
+                component: BuyProductComponent,
+                canActivate: [authGuard],
+                data: { roles: ['USER'] },
+                resolve: {
+                    productDetails: BuyProductResolverService
+                }
+            },
+            {
+                path: 'myorders',
+                component: MyOrdersComponent,
+                canActivate: [authGuard],
+                data: { roles: ['USER'] },
+            }
         ]
     },
-
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'verify-otp', component: OtpComponent },
-
     {
-        path: 'admin', component: AdminComponent,
+        path: 'admin',
+        component: AdminComponent,
+        canActivate: [authGuard],
+        data: { roles: ['ADMIN'] },
         children: [
             { path: '', component: DashbordcomponetComponent },
             { path: 'product', component: ProductComponent },
             { path: 'users', component: UsersComponent },
             { path: 'addproduct', component: AddProductComponent },
             { path: 'product/:id', component: ProductDetailComponent },
-            { path: 'editproduct/:id', component: EditProductComponent }
+            { path: 'editproduct/:id', component: EditProductComponent },
+            { path: 'orders', component: OrdersComponent },
+
         ]
     },
+    { path: '**', redirectTo: '' } // Redirect undefined routes to home
 ];
