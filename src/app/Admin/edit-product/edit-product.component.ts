@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { response } from 'express';
 import { ProductService } from '../../Service/product.service';
 import { CommonModule, NgFor } from '@angular/common';
-import { format } from 'path';
-import { FormModule } from '@coreui/angular';
-import { FormsModule, NgModel } from '@angular/forms';
-import { error } from 'console';
+import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-product',
@@ -36,7 +33,7 @@ export class EditProductComponent implements OnInit {
   };
   selectedFiles: File[] = [];
 
-  constructor(private activateroute: ActivatedRoute, private productService: ProductService) { }
+  constructor(private activateroute: ActivatedRoute, private productService: ProductService, private router: Router) { }
 
 
   productId: string | null = null;
@@ -60,7 +57,7 @@ export class EditProductComponent implements OnInit {
   onFileChange(event: any) {
     const files: FileList = event.target.files;
 
-    this.selectedFiles = Array.from(files); // Convert FileList to Array
+    this.selectedFiles = Array.from(files);
 
     if (this.selectedFiles.length > 0) {
       this.product.productImages = this.selectedFiles
@@ -70,10 +67,11 @@ export class EditProductComponent implements OnInit {
 
   }
   onSubmit() {
-    console.log(this.product);
+    // console.log(this.product);
 
     this.productService.updateProduct(this.product, this.selectedFiles).subscribe(response => {
-      alert("success")
+      Swal.fire("Product data updated!");
+      this.router.navigate(['/admin/product'])
     },
       error => {
         console.log(error);

@@ -20,7 +20,9 @@
             <h1 class="product-title">{{ product.title }}</h1>
             <p class="product-price">₹{{ product.price }}</p>
             <p class="product-description">{{ product.description }}</p>
-
+            <p class="card-text text-warning">
+                {{ product.stockStatus}}
+            </p>
             <button type="button" class="btn btn-warning mt-3" (click)="addToCart(productId)">Add to Cart</button>
             <button type="button" class="btn btn-outline-warning mt-3 ms-3" (click)="buyNow(productId)">Buy
                 Now</button>
@@ -51,4 +53,4 @@
         </div>
     </div>
 </div>
-<app-loading [isLoading]="isLoading"></app-loading>
+<!-- <app-loading [isLoading]="isLoading"></app-loading> -->

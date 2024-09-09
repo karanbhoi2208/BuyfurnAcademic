@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { response } from 'express';
 import { error } from 'console';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-update-user',
@@ -37,7 +38,7 @@ export class UpdateUserComponent implements OnInit {
   onSubmit() {
     if (this.selectedFile) {
       if (this.user && this.user.email) {
-        console.log(this.user);
+        // console.log(this.user);
 
         this.userService.updateUser(this.user, this.selectedFile).subscribe(
           response => {
@@ -54,13 +55,13 @@ export class UpdateUserComponent implements OnInit {
 
     }
     else {
-      console.log(this.user);
+      // console.log(this.user);
       this.user.address = this.newAddress;
       if (this.user && this.user.email) {
 
         this.userService.updateUser(this.user).subscribe(
           response => {
-            alert("Your information updated!")
+            Swal.fire("Your information is updated")
             this.router.navigate(['/userprofile']);
           },
           error => {
@@ -89,7 +90,7 @@ export class UpdateUserComponent implements OnInit {
   }
 
   findByEmail() {
-    const username = sessionStorage.getItem('username');
+    const username = localStorage.getItem('email');
     if (username) {
       this.userService.findByEmail(username).subscribe(
         response => {

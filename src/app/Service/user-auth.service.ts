@@ -24,6 +24,22 @@ export class UserAuthService {
     localStorage.setItem("basicAuth", basicauth)
   }
 
+  setUserName(name: string) {
+    localStorage.setItem("name", name);
+  }
+
+  getUserName() {
+    return localStorage.getItem('name')
+  }
+
+  setUserEmail(email: string) {
+    localStorage.setItem("email", email);
+  }
+
+  getUserEmail() {
+    return localStorage.getItem('email')
+  }
+
   getBasicAuthString() {
     if (typeof window !== 'undefined') {
       return localStorage.getItem("basicAuth")

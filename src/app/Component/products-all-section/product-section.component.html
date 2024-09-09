@@ -1,3 +1,17 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-12 d-flex justify-content-end">
+            <div class="input-group mb-3" style="max-width: 300px;">
+                <label class="input-group-text" for="categorySelect">Filter by</label>
+                <select class="form-control" id="category" name="category" (change)="filterProductByCategory($event)">
+                    <option value="" disabled selected>Category</option>
+                    <option *ngFor=" let category of categories" [value]="category">{{category}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="product-section py-5">
     <div class="container">
         <!-- Products Container -->
@@ -8,6 +22,9 @@
                         alt="{{ product.title}}">
                     <h3 id="product-title" class="pt-3">{{ product.title }}</h3>
                     <strong id="product-price">₹{{ product.price.toFixed(2) }}</strong>
+                    <p class="card-text text-warning">
+                        {{ product.stockStatus}}
+                    </p>
                 </a>
             </div>
         </div>
@@ -17,8 +34,6 @@
 
     </div>
 </div>
-<div *ngIf="nofiltereditem" class="loader-container">
-    <h1>No items releted to your search, Sorry!</h1>
+<div class="container d-flex justify-content-center align-items-center" *ngIf="noFilteredItems" style="height: 50vh;">
+    <h1 class="text-muted">No items related to your search, Sorry!</h1>
 </div>
-
-<app-loading [isLoading]="isLoading"></app-loading>

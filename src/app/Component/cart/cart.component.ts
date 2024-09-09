@@ -4,16 +4,17 @@ import { response } from 'express';
 import { error } from 'console';
 import { NgFor, NgIf } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [NgFor, NgIf, RouterLink],
+  imports: [NgFor, NgIf, RouterLink, LoadingComponent],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
 export class CartComponent implements OnInit {
-
+  isLoading: boolean = true;
   products: any = [];
   isNoProducts: boolean = false;
   constructor(private productService: ProductService, private router: Router) { }
@@ -24,6 +25,7 @@ export class CartComponent implements OnInit {
   getCartDetails() {
     this.productService.getCartDetails().subscribe(
       (response) => {
+        this.isLoading = false;
         this.products = response;
 
         if (this.products.length === 0) {
@@ -31,6 +33,7 @@ export class CartComponent implements OnInit {
         }
       },
       (error) => {
+        this.isLoading = false;
         console.error('Error fetching cart details:', error);
       }
     );

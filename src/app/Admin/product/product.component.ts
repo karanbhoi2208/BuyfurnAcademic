@@ -18,8 +18,7 @@ import { error } from 'console';
 export class ProductComponent implements OnInit {
 
   products: any = []
-  loading: boolean = true;
-
+  isNoProductAvailabel: boolean = false
   pageNumber: number = 0;
   searchKey: string = '';
   showLoadButton: boolean = false;
@@ -29,8 +28,7 @@ export class ProductComponent implements OnInit {
   }
 
   getAllProducts() {
-    this.loading = true
-    this.productService.getAllProducts(this.pageNumber, this.searchKey).subscribe(response => {
+    this.productService.getAllProducts(this.pageNumber, this.searchKey, "").subscribe(response => {
       if (response.length == 12) {
         this.showLoadButton = true;
       }
@@ -38,11 +36,12 @@ export class ProductComponent implements OnInit {
         this.showLoadButton = false;
       }
       this.products = [...this.products, ...response];
-      this.loading = false
+      if (this.products.length == 0) {
+        this.isNoProductAvailabel = true
+      }
     },
       error => {
         console.log(error);
-        this.loading = false;
 
       })
   }
@@ -61,16 +60,14 @@ export class ProductComponent implements OnInit {
   }
 
   loadMoreProducts() {
-
     this.pageNumber++;
     this.getAllProducts()
-
   }
 
   onSearch(event: Event) {
     event.preventDefault();
-    this.pageNumber = 0; // Reset page number for new search
-    this.products = []; // Clear current products
+    this.pageNumber = 0;
+    this.products = [];
     this.getAllProducts();
   }
 

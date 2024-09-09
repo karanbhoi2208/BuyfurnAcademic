@@ -18,8 +18,9 @@ export class LoginComponent {
   username: string = "";
   password: string = "";
 
+  loding: boolean = false;
 
-  loginError: any;
+  loginError: boolean = false;
 
   constructor(private userService: UserService, private router: Router, private userAuthService: UserAuthService) { }
 
@@ -29,12 +30,16 @@ export class LoginComponent {
     this.userAuthService.setBasicAuthString(authString);
 
 
-
+    this.loding = true;
     this.userService.login().subscribe(
       response => {
+
+        this.loding = false;
         const roles = response.roles;
 
         this.userAuthService.setRoles(roles);
+        this.userAuthService.setUserName(response.name)
+        this.userAuthService.setUserEmail(response.email)
 
         if (roles.includes("ADMIN")) {
           this.router.navigate(['/admin']);
@@ -45,6 +50,11 @@ export class LoginComponent {
 
       },
       error => {
+        if (error.status == 401) {
+          this.loginError = true
+        }
+        this.loding = false;
+        this.userAuthService.clearLocalStorage()
         console.error('Login failed', error);
       }
     );

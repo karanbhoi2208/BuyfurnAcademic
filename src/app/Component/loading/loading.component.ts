@@ -1,14 +1,16 @@
-import { NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { LoadingService } from '../../Service/loading.service';
 
 @Component({
   selector: 'app-loading',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, AsyncPipe],
   templateUrl: './loading.component.html',
   styleUrl: './loading.component.css'
 })
 export class LoadingComponent {
-  @Input() isLoading: boolean = false;
+  isLoading = this.loadingService.loading$;
 
+  constructor(private loadingService: LoadingService) { }
 }

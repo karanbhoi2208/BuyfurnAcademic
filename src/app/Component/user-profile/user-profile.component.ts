@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../Service/user.service';
 import { NgIf } from '@angular/common';
-import { NavigationEnd, Router, RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
-import { filter } from 'rxjs';
 import { UserAuthService } from '../../Service/user-auth.service';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [NgIf, RouterLink],
+  imports: [NgIf, RouterLink, LoadingComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
 })
@@ -18,7 +18,16 @@ export class UserProfileComponent implements OnInit {
   hasProfile: boolean = false;
   decodeString: any;
   firstPosition: string | null = null;
-  user: any;
+  user: any = {
+    name: '',
+    email: '',
+    contactNumber: '',
+    address: {
+      address: '',
+      pincode: '',
+      state: ''
+    },
+  };
 
   constructor(private userService: UserService, private userAuthService: UserAuthService, private router: Router) { }
 
@@ -26,12 +35,12 @@ export class UserProfileComponent implements OnInit {
     this.loadUserData();
   }
   loadUserData() {
-
     this.userService.login().subscribe(
       response => {
-        this.user = response;
+        this.user = response || {};  // Ensure user is not null
+        this.user.address = this.user.address || { address: '', pincode: '', state: '' };  // Ensure address is not null
         this.hasProfile = this.user.userImage && this.user.userImage !== "null";
-        sessionStorage.setItem("username", this.user.email);
+        localStorage.setItem("username", this.user.email);
       },
       error => {
         console.log(error);
@@ -45,6 +54,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   deleteMyAccount() {
+
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -57,18 +67,13 @@ export class UserProfileComponent implements OnInit {
       if (result.isConfirmed) {
         this.userService.delteMyAccont().subscribe(
           response => {
-            console.log(response);
-
-
             Swal.fire({
               title: "Deleted!",
               text: "Your account has been deleted.",
               icon: "success"
             }).then(() => {
-              this.logout(); // Log out after account deletion
+              this.logout();
             });
-
-            sessionStorage.removeItem('basicauth');
             this.router.navigate(['/']);
           },
           error => {

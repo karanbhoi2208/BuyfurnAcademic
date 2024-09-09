@@ -31,8 +31,8 @@ export class ProductService {
     return this.httpclient.post(`${this.baseUrl}/addproduct`, formData);
   }
 
-  getAllProducts(pageNumber: number, searchKey: string): Observable<any> {
-    return this.httpclient.get(`${this.baseUrl1}/getallproducts?pageNumber=${pageNumber}&searchKey=${searchKey}`);
+  getAllProducts(pageNumber: number, searchKey: string, category: string): Observable<any> {
+    return this.httpclient.get(`${this.baseUrl1}/getallproducts?pageNumber=${pageNumber}&searchKey=${searchKey}&searchCategory=${category}`);
   }
   getLetestProducts(): Observable<any> {
     return this.httpclient.get(`${this.baseUrl1}/latest`);
@@ -56,7 +56,7 @@ export class ProductService {
   }
 
   placeOrder(orderDetails: OrderDetails, isCartCheckout: boolean) {
-    console.log(isCartCheckout);
+    // console.log(isCartCheckout);
 
     return this.httpclient.post(`${this.baseUrl1}/user/placeOrder/${isCartCheckout}`, orderDetails)
   }

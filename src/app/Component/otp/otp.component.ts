@@ -20,8 +20,8 @@ export class OtpComponent implements OnInit {
   constructor(private userservice: UserService, private router: Router) { }
 
   ngOnInit(): void {
-    if (typeof sessionStorage !== 'undefined') {
-      this.email = sessionStorage.getItem("email");
+    if (typeof localStorage !== 'undefined') {
+      this.email = localStorage.getItem("email");
     }
   }
   email: any;
@@ -41,14 +41,14 @@ export class OtpComponent implements OnInit {
 
     this.userservice.verifyOtp(this.email, this.otp).subscribe(response => {
       if (response == true) {
-        console.log("successs");
-        if (typeof sessionStorage !== 'undefined') {
-          this.user.email = sessionStorage.getItem("email")
-          this.user.name = sessionStorage.getItem("name")
-          this.user.pasword = sessionStorage.getItem("pasword")
+        // console.log("successs");
+        if (typeof localStorage !== 'undefined') {
+          this.user.email = localStorage.getItem("email")
+          this.user.name = localStorage.getItem("name")
+          this.user.pasword = localStorage.getItem("pasword")
           this.userservice.register(this.user).subscribe(response => {
             if (response) {
-              sessionStorage.clear();
+              localStorage.clear()
               this.router.navigate(['/login']);
             }
 

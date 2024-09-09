@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ProductService } from '../../Service/product.service';
 import { LoadingComponent } from '../loading/loading.component';
@@ -12,40 +12,50 @@ import { NgFor, NgIf } from '@angular/common';
   styleUrl: './product-section.component.css'
 })
 export class ProductSectionComponent implements OnChanges {
-  isLoading: boolean = false;
+  noFilteredItems: boolean = false
   pageNumber: number = 0;
   showLoadButton: boolean = false;
-  nofiltereditem: boolean = false;
   products: any[] = [];
   @Input() filterText: string = '';
+  selectedCategory: string = '';
 
   constructor(private productService: ProductService) { }
 
+
+  categories: string[] = ['Living Room', 'Bedroom', 'Dining Room', 'Office Furniture', 'Outdoor Furniture', 'Storage Solutions'];
+
   ngOnChanges(changes: SimpleChanges) {
+
     if (changes['filterText']) {
       this.pageNumber = 0;
       this.products = [];
       this.getAllProducts();
     }
   }
+  filterProductByCategory(event: Event) {
+    this.selectedCategory = (event.target as HTMLSelectElement).value;
+    this.pageNumber = 0;
+    this.products = [];
+    this.getAllProducts()
+
+  }
 
   getAllProducts() {
-    this.isLoading = true;
-    this.productService.getAllProducts(this.pageNumber, this.filterText).subscribe(
+    this.productService.getAllProducts(this.pageNumber, this.filterText, this.selectedCategory).subscribe(
       (response) => {
+        // console.log('Backend response:', response);
+
         if (response.length > 0) {
           this.products = [...this.products, ...response];
           this.showLoadButton = response.length === 12;
-          this.nofiltereditem = false;
+          this.noFilteredItems = false;
         } else {
           this.showLoadButton = false;
-          this.nofiltereditem = this.pageNumber === 0;
+          this.noFilteredItems = this.pageNumber === 0;
         }
-        this.isLoading = false;
       },
       (error) => {
         console.error('Error fetching products', error);
-        this.isLoading = false;
       }
     );
   }

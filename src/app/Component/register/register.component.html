@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row justify-content-center mt-5">
         <div class="col-lg-5">
-            <h2 class="text-center mb-3">BuyFurn<span>.</span></h2>
+            <h2 class="text-center mb-3" routerLink="/" style="cursor: pointer;">BuyFurn<span>.</span></h2>
 
             <div class="card">
                 <div class="card-body">
@@ -12,7 +12,7 @@
                             <input type="text" id="fullName" name="fullName" class="form-control" required
                                 [(ngModel)]="user.name" #fullName="ngModel">
                             <div *ngIf="fullName.invalid && fullName.touched" class="text-danger">
-                                Name is required.
+                                Please Enter your name.
                             </div>
                         </div>
                         <div class="mb-3">
@@ -20,7 +20,7 @@
                             <input type="email" id="email" name="email" class="form-control" required
                                 [(ngModel)]="user.email" #email="ngModel">
                             <div *ngIf="email.invalid && email.touched" class="text-danger">
-                                Valid email is required.
+                                Please Enter valid email.
                             </div>
                             <p *ngIf="emailIdExits" class="text-danger">This email is already
                                 registered.</p>
@@ -31,11 +31,14 @@
                             <input type="password" id="password" name="password" class="form-control" required
                                 [(ngModel)]="user.pasword" #password="ngModel">
                             <div *ngIf="password.invalid && password.touched" class="text-danger">
-                                Password is required.
+                                Please Enter your password..
                             </div>
                         </div>
-                        <button type="submit" class="btn w-100" [disabled]="registrationForm.invalid">Verify
-                            email</button>
+                        <button type="submit" class="btn w-100" [disabled]="registrationForm.invalid"><span
+                                *ngIf="loding" class="spinner-border spinner-border-sm custom-spinner" role="status"
+                                aria-hidden="true"></span>
+                            <span class="text-dark" *ngIf="!loding">Verify Email</span>
+                        </button>
                     </form>
                     <p *ngIf="registrationError" class="text-danger text-center mt-3">Registration failed. Please try
                         again.</p>

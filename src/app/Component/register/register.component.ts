@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../Service/user.service';
 import { User } from '../../Interface/user';
@@ -17,6 +17,7 @@ import { EmailService } from '../../Service/email.service';
 })
 export class RegisterComponent {
   // routerLink="/otp"
+
   EmailRequest: any = {
     to: '',
     subject: '',
@@ -29,23 +30,28 @@ export class RegisterComponent {
     pasword: '',
   }
 
-  constructor(private userSerive: UserService, private route: Router, private emailService: EmailService) { }
+  loding: boolean = false;
+
+  constructor(private userSerive: UserService, private route: Router, private emailService: EmailService) {
+
+  }
   registrationError: any;
   emailIdExits: any;
   generateOtp() {
+    this.loding = true;
     this.userSerive.generateOtp(this.user.email).subscribe(response => {
-      console.log(response);
-
-      if (typeof sessionStorage !== 'undefined') {
-        sessionStorage.setItem("email", this.user.email.trim())
-        sessionStorage.setItem("name", this.user.name)
-        sessionStorage.setItem("pasword", this.user.pasword)
+      // console.log(response);
+      this.loding = false;
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem("email", this.user.email.trim())
+        localStorage.setItem("name", this.user.name)
+        localStorage.setItem("pasword", this.user.pasword)
         this.EmailRequest.to = this.user.email.trim();
         this.EmailRequest.subject = "Email Verification";
         this.EmailRequest.text = response;
 
         this.emailService.sendMail(this.EmailRequest).subscribe(mailResponse => {
-          console.log('Email sent successfully:', mailResponse);
+
         });
 
         this.route.navigate(['/verify-otp']);
@@ -56,8 +62,11 @@ export class RegisterComponent {
       error => {
         if (error.status == 302) {
           this.emailIdExits = true;
+          this.loding = false;
         }
         else {
+          this.loding = false;
+
           this.registrationError = true;
         }
       }

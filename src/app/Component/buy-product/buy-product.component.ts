@@ -6,20 +6,20 @@ import { UserService } from '../../Service/user.service';
 import { OrderDetails } from '../../Interface/orderdetails';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { filter } from 'rxjs';
-import e, { response } from 'express';
-import { error } from 'console';
 import { UserAuthService } from '../../Service/user-auth.service';
+import { LoadingComponent } from '../loading/loading.component';
 // import Razorpay from 'razorpay';
 declare var Razorpay: any;
 @Component({
   selector: 'app-buy-product',
   standalone: true,
-  imports: [NgIf, FormsModule, NgFor],
+  imports: [NgIf, FormsModule, NgFor, LoadingComponent],
   templateUrl: './buy-product.component.html',
   styleUrls: ['./buy-product.component.css']
 })
 export class BuyProductComponent implements OnInit {
+
+  isLoading: boolean = true;
 
   productQuantities: { [key: number]: number } = {};
 
@@ -61,12 +61,16 @@ export class BuyProductComponent implements OnInit {
   }
 
   loadUserData() {
+
     if (typeof window !== 'undefined' && localStorage.getItem("basicAuth")) {
+
       this.userService.login().subscribe(
         response => {
-          this.user = response;
+          this.isLoading = false;
+          this.user = response || {};
+          // this.user.address = this.user.address || { address: '', pincode: '', state: '' };  // Ensure address is not null
           this.orderDetails.fullName = this.user.name;
-          this.orderDetails.address = this.user.address;
+          this.orderDetails.address = this.user.address || { address: '', pincode: '', state: '' };
           this.orderDetails.contactNumber = this.user.contactNumber;
         },
         error => {
@@ -94,7 +98,7 @@ export class BuyProductComponent implements OnInit {
 
     this.productService.placeOrder(this.orderDetails, this.isSingleProductCheckout).subscribe(
       (response) => {
-        alert("Order Placed successfully");
+        // alert("Order Placed successfully");
         this.userAuthService.setOrderPlaced(true);
         this.router.navigate(['/orderplaced']);
       },
@@ -184,7 +188,7 @@ export class BuyProductComponent implements OnInit {
   processResponse(resp: any, orderForm: NgForm) {
     this.orderDetails.transactionId = resp.razorpay_payment_id;
     this.placeOrder(orderForm);
-    console.log(this.orderDetails);
+    // console.log(this.orderDetails);
 
   }
 }

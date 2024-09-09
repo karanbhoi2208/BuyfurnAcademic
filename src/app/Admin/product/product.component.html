@@ -14,12 +14,9 @@
     <!-- Add Product Button -->
     <button type="button" class="btn btn-primary mb-4" routerLink="/admin/addproduct">Add Product</button>
 
-    <div *ngIf="loading" class="loader-container">
-        <div class="loader"></div>
-    </div>
-    <div *ngIf="!loading" class="product-section py-5">
+
+    <div class="product-section py-5" *ngIf="!isNoProductAvailabel">
         <div class="container">
-            <!-- Products Container -->
             <div class="row" id="product-list">
                 <div *ngFor="let product of products" class="col-12 col-md-4 col-lg-3 mb-5">
                     <div class="product-card card h-100">
@@ -31,6 +28,9 @@
                             <h5 class="card-title" id="product-title">{{ product.title }}</h5>
                             <p class="card-text">
                                 <strong id="product-price">₹{{ product.price.toFixed(2) }}</strong>
+                            </p>
+                            <p class="card-text text-warning">
+                                {{ product.stockStatus}}
                             </p>
                             <div class="d-flex justify-content-around">
                                 <button class="btn btn-outline-primary"
@@ -48,5 +48,11 @@
         <div class="text-center" *ngIf="showLoadButton">
             <button type="button" class="btn btn-outline-primary" (click)="loadMoreProducts()">Load more</button>
         </div>
+    </div>
+</div>
+
+<div class="container text-center my-5" *ngIf="isNoProductAvailabel">
+    <div>
+        <img src="../../../assets/images/no_data.jpg" alt="No orders" class="img-fluid no-data">
     </div>
 </div>

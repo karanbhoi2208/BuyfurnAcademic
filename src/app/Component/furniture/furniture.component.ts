@@ -13,21 +13,18 @@ import { LoadingComponent } from '../loading/loading.component';
 })
 export class FurnitureComponent {
 
-  categories: string[] = ['All', 'Living Room', 'Bedroom', 'Dining Room', 'Office Furniture', 'Outdoor Furniture', 'Storage Solutions'];
 
-  onCategoryChange() {
-    console.log("catergory change");
-
-  }
 
   filterText: string = '';
 
   search: string = '';
-  selectedCategory: any;
 
 
   onSearch() {
     this.search = this.filterText
   }
+
+
+
 
 }
