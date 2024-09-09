@@ -40,7 +40,7 @@ export class AddProductComponent {
   constructor(private productService: ProductService, private router: Router) { }
 
   onSubmit() {
-    console.log(typeof (this.product.stockStatus), this.product.stockStatus);
+    // console.log(typeof (this.product.stockStatus), this.product.stockStatus);
 
     this.productService.addProduct(this.product, this.selectedFiles)
       .subscribe(response => {
