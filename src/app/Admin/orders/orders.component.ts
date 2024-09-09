@@ -3,6 +3,7 @@ import { ProductService } from '../../Service/product.service';
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { response } from 'express';
 import { BlobOptions } from 'buffer';
+import { OrderDetails } from '../../Interface/orderdetails';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class OrdersComponent implements OnInit {
   filterOrders(arg0: string) {
     throw new Error('Method not implemented.');
   }
-  orderDetails: any = []
+  orderDetails: any = [];
+  isOrderIsEmpty: boolean = false;
   notDelivered: boolean = true
   constructor(private productService: ProductService) { }
 
@@ -30,12 +32,13 @@ export class OrdersComponent implements OnInit {
     this.productService.getAllOrderDetails(status).subscribe(
       response => {
         this.orderDetails = response;
-        console.log(this.orderDetails);
+        if (this.orderDetails.length == 0) {
+          this.isOrderIsEmpty = true
+        }
 
       },
       error => {
         console.log(error);
-
       }
     );
   }
