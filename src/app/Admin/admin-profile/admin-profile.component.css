@@ -172,13 +172,20 @@ a {
     }
 
     .dropdown-menu {
-        width: 100%;
+        top: 44px;
+        width: 208px;
         box-shadow: none;
+        position: fixed;
         border: none;
         border-top: 1px solid #ddd;
         border-radius: 0;
         margin-top: 10px;
+        left: 150px;
+        right: 0px;
+
     }
+
+
 
     .dropdown-item {
         padding: 10px 20px;
@@ -189,4 +196,19 @@ a {
         right: 95px !important;
 
     }
+}
+
+@media (max-width: 767.98px) {
+    .custom-navbar-cta {
+        position: fixed;
+        top: 0px;
+        left: 220px;
+        flex-direction: row;
+        gap: 10px;
+    }
+}
+
+.bi-person-fill {
+    margin: 8px;
+    font-size: 26px;
 }

@@ -104,3 +104,9 @@ img {
         transform: rotate(360deg);
     }
 }
+
+.no-data {
+    max-width: 100%;
+    height: 500px;
+
+}

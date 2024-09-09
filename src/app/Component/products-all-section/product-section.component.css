@@ -1,7 +1,7 @@
 /* src/app/components/product/product.component.css */
 /* General product section styles */
 .product-section {
-    background-color: #f8f9fa;
+    /* background-color: #f8f9fa; */
     padding: 2rem 0;
 }
 
@@ -82,4 +82,9 @@
 img {
     height: 200px;
     width: 200px;
+}
+
+select:focus {
+    outline: none;
+    box-shadow: none;
 }
