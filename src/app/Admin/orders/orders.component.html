@@ -1,13 +1,15 @@
-<div *ngIf="!isOrderIsEmpty">
+<div>
 
-    <div class="filter-buttons mb-3 btn-group btn-group-toggle">
-        <button class="btn btn-secondary active pe-3" (click)="getOrderDetails('all')">All</button>
-        <button class="btn btn btn-secondary pe-3" (click)="getOrderDetails('Placed')">Placed</button>
-        <button class="btn btn-secondary" (click)=" getOrderDetails('Delivered')">Delivered</button>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="filter-buttons btn-group btn-group-toggle">
+            <button class="btn btn-secondary active pe-3" (click)="getOrderDetails('all')">All</button>
+            <button class="btn btn-secondary pe-3" (click)="getOrderDetails('Placed')">Placed</button>
+            <button class="btn btn-secondary" (click)="getOrderDetails('Delivered')">Delivered</button>
+        </div>
+        <a class="btn btn-outline-success" routerLink="/admin/visualizationorders">Visualize</a>
     </div>
 
-
-    <div class="table-responsive">
+    <div class="table-responsive" *ngIf="this.orderDetails.length!=0">
 
         <table class="table table-bordered table-responsive">
             <thead>
@@ -54,5 +56,11 @@
 <div class="container text-center my-5" *ngIf="isOrderIsEmpty">
     <div>
         <img src="../../../assets/images/no_data.jpg" alt="No orders" class="img-fluid">
+    </div>
+</div>
+
+<div *ngIf="isLoading" class="text-center my-5">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
     </div>
 </div>

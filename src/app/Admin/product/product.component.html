@@ -56,3 +56,10 @@
         <img src="../../../assets/images/no_data.jpg" alt="No orders" class="img-fluid no-data">
     </div>
 </div>
+
+<!-- Loading Indicator -->
+<div *ngIf="isLoading" class="text-center my-5">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
