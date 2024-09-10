@@ -9,9 +9,15 @@ export class AdminService {
 
   constructor(private httpClient: HttpClient) { }
 
-  baseUrl: String = "https://buyfurnbackendapis.onrender.com/api"
+  // baseUrl: String = "http://localhost:8090/api"
+
+  baseUrl: String = "https://buyfurnbackend-xzhj.onrender.com/api"
 
   getAllUsers(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/getall`);
+  }
+
+  getAllProducts(pageNumber: number, searchKey: string, category: string): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/admin/getAllProductsForAdmin?pageNumber=${pageNumber}&searchKey=${searchKey}&searchCategory=${category}`);
   }
 }

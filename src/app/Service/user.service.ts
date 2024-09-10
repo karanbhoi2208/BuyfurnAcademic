@@ -9,9 +9,9 @@ import { UserAuthService } from './user-auth.service';
 })
 export class UserService {
 
-  // baseUrl: String = "https://buyfurnbackendapis.onrender.com/api"
+  baseUrl: String = "https://buyfurnbackend-xzhj.onrender.com/api"
 
-  baseUrl: String = "http://localhost:8090/api"
+  // baseUrl: String = "http://localhost:8090/api"
   constructor(private httpClient: HttpClient, private userAuthService: UserAuthService) { }
 
   login(): Observable<any> {

@@ -8,7 +8,7 @@ export class EmailService {
 
   constructor(private httpClient: HttpClient) { }
 
-  baseUrl: String = "https://buyfurnbackendapis.onrender.com/api"
+  baseUrl: String = "https://buyfurnbackend-xzhj.onrender.com/api"
 
 
   sendMail(email: EmailService) {

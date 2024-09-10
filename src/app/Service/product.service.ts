@@ -9,14 +9,12 @@ import { OrderDetails } from '../Interface/orderdetails';
 })
 export class ProductService {
 
-  // baseUrl: String = "https://buyfurnbackendapis.onrender.com/api/admin"
-  // baseUrl1: String = "https://buyfurnbackendapis.onrender.com/api"
+  baseUrl: String = "https://buyfurnbackend-xzhj.onrender.com/api/admin"
+  baseUrl1: String = "https://buyfurnbackend-xzhj.onrender.com/api"
 
 
-  baseUrl1: String = "http://localhost:8090/api"
-  // http://localhost:8089/api/getallproducts
-
-  baseUrl: String = "http://localhost:8090/api/admin"
+  // baseUrl1: String = "http://localhost:8090/api"
+  // baseUrl: String = "http://localhost:8090/api/admin"
 
   constructor(private httpclient: HttpClient) { }
 
