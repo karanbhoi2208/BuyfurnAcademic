@@ -21,7 +21,7 @@ export class LatestproductComponent implements OnInit {
     this.getLatestProduct()
   }
   products: Product[] = [];
-
+  isEmpty: boolean = false
 
   getLatestProduct() {
     this.isLoading = true;
@@ -29,7 +29,12 @@ export class LatestproductComponent implements OnInit {
       this.isLoading = false;
 
       this.products = data;
-
+      if (this.products.length === 0) {
+        this.isEmpty = true
+      }
+      else {
+        this.isEmpty = false
+      }
     }, error => {
       console.log(error);
       this.isLoading = false;

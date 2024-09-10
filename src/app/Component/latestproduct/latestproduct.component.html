@@ -13,5 +13,6 @@
         </div>
     </div>
 </div>
-
-<!-- <app-loading [isLoading]="isLoading"></app-loading> -->
+<div class="container d-flex justify-content-center align-items-center" *ngIf="isEmpty" style="height: 50vh;">
+    <h1 class="text-muted">No Products,Sorry!</h1>
+</div>
