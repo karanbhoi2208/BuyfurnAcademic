@@ -27,6 +27,7 @@ import { ForbiddenComponent } from './Component/forbidden/forbidden.component';
 import { OrdersComponent } from './Admin/orders/orders.component';
 import { MyOrdersComponent } from './Component/my-orders/my-orders.component';
 import { orderGuardGuard } from './Auth/order-guard.guard';
+import { OrderVisualizationComponent } from './Admin/order-visualization/order-visualization.component';
 
 export const routes: Routes = [
     {
@@ -98,6 +99,7 @@ export const routes: Routes = [
             { path: 'product/:id', component: ProductDetailComponent },
             { path: 'editproduct/:id', component: EditProductComponent },
             { path: 'orders', component: OrdersComponent },
+            { path: 'visualizationorders', component: OrderVisualizationComponent },
 
         ]
     },
