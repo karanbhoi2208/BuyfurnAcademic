@@ -1,17 +1,4 @@
-<div class="user-table">
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <!-- Add other table headers as needed -->
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let user of users">
-                <td>{{ user.name }}</td>
-                <td>{{ user.email }}</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="container chart-container">
+    <h2 class="text-center">User Role Distribution</h2>
+    <canvas id="userChart"></canvas> <!-- Chart.js canvas -->
 </div>
