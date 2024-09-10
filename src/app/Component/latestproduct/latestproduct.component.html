@@ -8,6 +8,9 @@
                         alt="{{ product.title}}">
                     <h3 id="product-title" class="pt-3">{{ product.title }}</h3>
                     <strong id="product-price">₹{{ product.price.toFixed(2) }}</strong>
+                    <p class="card-text text-warning">
+                        {{ product.stockStatus}}
+                    </p>
                 </a>
             </div>
         </div>
