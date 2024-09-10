@@ -33,6 +33,7 @@
     }
 
     .navbarNav {
+        background-color: red;
         display: flex !important;
     }
 
@@ -42,12 +43,16 @@
     }
 }
 
-@media (max-width: 767.98px) {
-    .custom-navbar-cta {
-        position: absolute;
-        top: 12px;
-        left: 189px;
-        flex-direction: row;
-        gap: 10px;
+
+
+.navbar-toggler-icon {
+    color: #0056b3;
+
+}
+
+
+@media only screen and (max-width: 600px) {
+    .main-content {
+        padding-top: 20px;
     }
 }
