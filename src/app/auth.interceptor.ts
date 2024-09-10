@@ -7,7 +7,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const loadingService = inject(LoadingService); // Inject the LoadingService
 
   const isAdminRequest = req.url.includes('/admin'); // Check if the request is for admin URLs
-  console.log(isAdminRequest);
+  // console.log(isAdminRequest);
 
   if (!isAdminRequest) {
     loadingService.showLoading();  // Use the injected service directly
