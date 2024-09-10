@@ -40,14 +40,13 @@ export class RegisterComponent {
   generateOtp() {
     this.loding = true;
     this.userSerive.generateOtp(this.user.email).subscribe(response => {
-      // console.log(response);
       this.loding = false;
       if (typeof localStorage !== 'undefined') {
         localStorage.setItem("email", this.user.email.trim())
         localStorage.setItem("name", this.user.name)
         localStorage.setItem("pasword", this.user.pasword)
         this.EmailRequest.to = this.user.email.trim();
-        this.EmailRequest.subject = "Email Verification";
+        this.EmailRequest.subject = "OTP for varify your email";
         this.EmailRequest.text = response;
 
         this.emailService.sendMail(this.EmailRequest).subscribe(mailResponse => {
