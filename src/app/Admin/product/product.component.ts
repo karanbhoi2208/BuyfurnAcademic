@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { RouterLink } from '@angular/router';
 import { response } from 'express';
 import { error } from 'console';
+import { AdminService } from '../../Service/admin.service';
 
 @Component({
   selector: 'app-product',
@@ -22,13 +23,17 @@ export class ProductComponent implements OnInit {
   pageNumber: number = 0;
   searchKey: string = '';
   showLoadButton: boolean = false;
-  constructor(private productService: ProductService) { }
+  isLoading: boolean = false;
+
+  constructor(private productService: ProductService, private adminService: AdminService) { }
   ngOnInit(): void {
     this.getAllProducts()
   }
 
   getAllProducts() {
-    this.productService.getAllProducts(this.pageNumber, this.searchKey, "").subscribe(response => {
+    this.isLoading = true
+    this.adminService.getAllProducts(this.pageNumber, this.searchKey, "").subscribe(response => {
+      this.isLoading = false
       if (response.length == 12) {
         this.showLoadButton = true;
       }
@@ -41,6 +46,7 @@ export class ProductComponent implements OnInit {
       }
     },
       error => {
+        this.isLoading = false
         console.log(error);
 
       })
