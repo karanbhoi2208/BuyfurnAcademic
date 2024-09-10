@@ -13,7 +13,11 @@ export class UserAuthService {
   }
 
   getRoles(): any[] {
-    const roles = localStorage.getItem('roles');
+    let roles
+
+    if (typeof window !== 'undefined') {
+      roles = localStorage.getItem('roles');
+    }
     if (roles) {
       return JSON.parse(roles)
     }
@@ -52,7 +56,6 @@ export class UserAuthService {
   }
 
   isLoggedIn() {
-
     if (this.getRoles() && this.getBasicAuthString()) {
       return true
     }
