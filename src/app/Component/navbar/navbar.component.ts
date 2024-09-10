@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../Service/user.service';
 import { UserAuthService } from '../../Service/user-auth.service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, NgIf],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
@@ -15,8 +16,12 @@ export class NavbarComponent {
 
   constructor(private router: Router, private userAuthService: UserAuthService) { }
 
+  loggedIn = this.userAuthService.isLoggedIn()
 
+  logOut() {
+    this.userAuthService.clearLocalStorage()
 
+  }
   navigateToProfileOrLogin(): void {
     const isLoggedIn = this.userAuthService.isLoggedIn();
     if (isLoggedIn) {
