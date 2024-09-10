@@ -4,6 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../Service/user.service';
 import { UserAuthService } from '../../Service/user-auth.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -62,6 +63,6 @@ export class LoginComponent {
 
 
   forgotPassword() {
-    alert("Method not implement")
+    Swal.fire("This functionality not implemented 😔")
   }
 }

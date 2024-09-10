@@ -8,6 +8,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { UserAuthService } from '../../Service/user-auth.service';
 import { LoadingComponent } from '../loading/loading.component';
+import Swal from 'sweetalert2';
 // import Razorpay from 'razorpay';
 declare var Razorpay: any;
 @Component({
@@ -98,7 +99,6 @@ export class BuyProductComponent implements OnInit {
 
     this.productService.placeOrder(this.orderDetails, this.isSingleProductCheckout).subscribe(
       (response) => {
-        // alert("Order Placed successfully");
         this.userAuthService.setOrderPlaced(true);
         this.router.navigate(['/orderplaced']);
       },
@@ -163,13 +163,13 @@ export class BuyProductComponent implements OnInit {
           this.processResponse(response, orderForm)
         }
         else {
-          alert("Payment failed")
+          Swal.fire("Payment Failed");
         }
       },
       prefill: {
         name: 'BuyFurn',
         email: 'buyfurn@gmail.com',
-        contact: '9664800705',
+        contact: this.orderDetails.contactNumber,
 
       },
       notes: {

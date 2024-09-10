@@ -42,7 +42,7 @@ export class UpdateUserComponent implements OnInit {
 
         this.userService.updateUser(this.user, this.selectedFile).subscribe(
           response => {
-            alert("Your information updated!")
+            Swal.fire("Your information updated!")
             this.router.navigate(['/userprofile']);
           },
           error => {

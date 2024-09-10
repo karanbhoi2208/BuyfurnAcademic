@@ -5,6 +5,7 @@ import { error } from 'console';
 import { NgFor, NgIf } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { LoadingComponent } from '../loading/loading.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cart',
@@ -53,7 +54,8 @@ export class CartComponent implements OnInit {
     this.productService.removeCartProduct(id).subscribe(
       response => {
         this.getCartDetails();
-        alert("Product removed");
+        Swal.fire("Product removed");
+
       },
       error => {
         console.log(error);

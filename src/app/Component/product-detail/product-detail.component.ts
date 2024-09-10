@@ -7,6 +7,7 @@ import { response } from 'express';
 import { error } from 'console';
 import { UserAuthService } from '../../Service/user-auth.service';
 import { LoadingComponent } from '../loading/loading.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-detail',
@@ -62,7 +63,7 @@ export class ProductDetailComponent {
       if (isLoggedIn) {
         this.productService.addToCart(cartId, this.quantity).subscribe(
           (response) => {
-            alert("Product added to your cart!")
+            Swal.fire("Product added to your cart!")
           },
           (error) => {
             console.log(error);
