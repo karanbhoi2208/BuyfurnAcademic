@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 })
 export class OtpComponent implements OnInit {
   verificationError: any;
+  loading: boolean = false;
 
   constructor(private userservice: UserService, private router: Router) { }
 
@@ -38,10 +39,10 @@ export class OtpComponent implements OnInit {
   }
 
   verifyOtp() {
-
+    this.loading = true
     this.userservice.verifyOtp(this.email, this.otp).subscribe(response => {
       if (response == true) {
-        // console.log("successs");
+        this.loading = false
         if (typeof localStorage !== 'undefined') {
           this.user.email = localStorage.getItem("email")
           this.user.name = localStorage.getItem("name")
@@ -54,6 +55,7 @@ export class OtpComponent implements OnInit {
 
           }, error => {
             console.log(error);
+            this.loading = false
 
           })
 
@@ -61,10 +63,13 @@ export class OtpComponent implements OnInit {
       }
       else {
         this.verificationError = true;
+        this.loading = false
+
       }
 
     },
       error => {
+        this.loading = false
         console.log(error);
       }
     )

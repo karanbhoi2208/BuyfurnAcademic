@@ -11,7 +11,10 @@
                             <input type="text" id="otp" name="otp" class="form-control" required [(ngModel)]="otp"
                                 placeholder="Enter 6-Digit OTP">
                         </div>
-                        <button type="submit" class="btn w-100">Verify OTP</button>
+                        <button type="submit" class="btn w-100"> <span *ngIf="loading"
+                                class="spinner-border spinner-border-sm custom-spinner" role="status"
+                                aria-hidden="true"></span>
+                            <span class="text-dark" *ngIf="!loading">Verify otp</span></button>
                     </form>
                     <p *ngIf="verificationError" class="text-danger text-center mt-3">Invalid otp!. Please
                         try
