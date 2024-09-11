@@ -15,11 +15,18 @@ body {
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
     display: none;
-    /* Chrome, Safari, and Opera */
 }
 
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 
+}
+
+input:focus {
+    box-shadow: none !important;
+}
+
+textarea:focus {
+    box-shadow: none !important;
 }
