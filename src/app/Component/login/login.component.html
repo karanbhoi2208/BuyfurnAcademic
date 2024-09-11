@@ -27,9 +27,9 @@
                             <span class="text-dark" *ngIf="!loding">Login</span>
                         </button>
                     </form>
-                    <p *ngIf="loginError" class="text-danger text-center mt-3">Invalid email or password.</p>
+                    <p *ngIf="loginError" class="text-danger text-center mt-3">{{loginMsg}}</p>
                     <div class="d-flex justify-content-between mt-3">
-                        <a href="#" class="link-primary" (click)="forgotPassword()">Forgot password?</a>
+                        <a routerLink="/login" class="link-primary" (click)="forgotPassword()">Forgot password?</a>
                     </div>
                 </div>
             </div>
