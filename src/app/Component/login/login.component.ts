@@ -20,7 +20,7 @@ export class LoginComponent {
   password: string = "";
 
   loding: boolean = false;
-
+  loginMsg: string = ""
   loginError: boolean = false;
 
   constructor(private userService: UserService, private router: Router, private userAuthService: UserAuthService) { }
@@ -52,11 +52,18 @@ export class LoginComponent {
       },
       error => {
         if (error.status == 401) {
+          this.loding = false
           this.loginError = true
+          this.loginMsg = "Invalid email or password."
         }
         this.loding = false;
         this.userAuthService.clearLocalStorage()
-        console.error('Login failed', error);
+        if (error.status == 0) {
+          this.loginError = true
+          this.loding = false
+          this.loginMsg = "Login failed try again!"
+        }
+
       }
     );
   }
