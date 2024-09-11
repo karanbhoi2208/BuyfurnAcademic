@@ -12,8 +12,11 @@ export class ProductService {
   // baseUrl1: String = "https://buyfurnbackend-xzhj.onrender.com/api"
   // baseUrl: String = "https://buyfurnbackend-xzhj.onrender.com/api/admin"
 
-  baseUrl1: String = "http://buyfurn.ap-south-1.elasticbeanstalk.com/api"
-  baseUrl: String = "http://buyfurn.ap-south-1.elasticbeanstalk.com/api/admin"
+  baseUrl1: String = "https://buyfurnbackend.site/api"
+  baseUrl: String = "https://buyfurnbackend.site/api/admin"
+
+  // baseUrl1: String = "http://buyfurn.ap-south-1.elasticbeanstalk.com/api"
+  // baseUrl: String = "http://buyfurn.ap-south-1.elasticbeanstalk.com/api/admin"
 
 
   // baseUrl1: String = "http://localhost:8090/api"

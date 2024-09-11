@@ -10,7 +10,8 @@ import { UserAuthService } from './user-auth.service';
 export class UserService {
 
   // baseUrl: String = "https://buyfurnbackend-xzhj.onrender.com/api"
-  baseUrl: String = "http://buyfurn.ap-south-1.elasticbeanstalk.com/api"
+  // baseUrl: String = "http://buyfurn.ap-south-1.elasticbeanstalk.com/api"
+  baseUrl: String = "https://buyfurnbackend.site/api"
 
   // baseUrl: String = "http://localhost:8090/api"
   constructor(private httpClient: HttpClient, private userAuthService: UserAuthService) { }

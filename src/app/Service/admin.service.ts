@@ -11,7 +11,9 @@ export class AdminService {
 
   // baseUrl: String = "http://localhost:8090/api"
   // http://buyfurn.ap-south-1.elasticbeanstalk.com/swagger-ui/index.html
-  baseUrl: String = "http://buyfurn.ap-south-1.elasticbeanstalk.com/api"
+  // baseUrl: String = "http://buyfurn.ap-south-1.elasticbeanstalk.com/api"
+  baseUrl: String = "https://buyfurnbackend.site/api"
+
 
   getAllUsers(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/getall`);
