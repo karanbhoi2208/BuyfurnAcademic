@@ -1,6 +1,6 @@
 /* src/app/components/product/product.component.css */
 /* General product section styles */
-.product-section {
+/* .product-section {
     background-color: #f8f9fa;
     padding: 2rem 0;
 }
@@ -13,7 +13,7 @@
     font-size: 1.5rem;
     font-weight: bold;
     color: #333;
-}
+} */
 
 .btn-primary {
     background-color: #ffcc00;
@@ -82,31 +82,4 @@
 img {
     height: 200px;
     width: 200px;
-}
-
-.loader-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 200px;
-    /* Adjust height as needed */
-}
-
-.loader {
-    border: 4px solid rgba(0, 0, 0, 0.3);
-    border-radius: 50%;
-    border-top: 4px solid #3b5d50;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
 }
