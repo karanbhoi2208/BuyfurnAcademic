@@ -1,76 +1,45 @@
-<!-- Start Footer Section -->
-<footer class="footer-section bg-dark text-light pt-5 pb-3">
-    <div class="container relative">
-        <div class="row g-5 mb-5">
-            <div class="col-lg-4">
-                <div class="mb-4 footer-logo-wrap">
-                    <a routerLink="" class="footer-logo text-light fs-2 fw-bold">BuyFurn<span>.</span></a>
-                </div>
-                <p class="mb-4 text-justify">
+<footer class="bg-dark text-light py-3">
+    <div class="container">
+        <div class="row">
+            <!-- About BuyFurn -->
+            <div class="col-md-4">
+                <a class="navbar-brand text-light fs-2 fw-bold" routerLink="">BuyFurn<span
+                        class="text-warning">.</span></a>
+                <p>
                     Explore BuyFurn for quality, comfortable furniture that blends style and functionality from modern
                     designs to timeless classics. Transform your space with elegance today.
+
                 </p>
-                <ul class="list-unstyled custom-social d-flex">
-                    <li class="me-3"><a routerLink="#"><span class="bi bi-facebook text-light fs-4"></span></a></li>
-                    <li class="me-3"><a routerLink="#"><span class="bi bi-twitter text-light fs-4"></span></a></li>
-                    <li class="me-3"><a routerLink="#"><span class="bi bi-instagram text-light fs-4"></span></a></li>
-                    <li class="me-3"><a routerLink="#"><span class="bi bi-linkedin text-light fs-4"></span></a></li>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-md-3">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a routerLink="/" class="text-light">Home</a></li>
+                    <li><a routerLink="/furniture" class="text-light">Furniture</a></li>
+                    <!-- <li><a href="/about" class="text-light">About Us</a></li> -->
+                    <li><a routerLink="/contact" class="text-light">Contact Us</a></li>
                 </ul>
             </div>
 
-            <div class="col-lg-8">
-                <div class="row links-wrap">
-                    <div class="col-6 col-sm-6 col-md-3 mb-3">
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="text-light">About us</a></li>
-                            <li><a href="#" class="text-light">Services</a></li>
-                            <li><a href="#" class="text-light">Blog</a></li>
-                            <li><a href="#" class="text-light">Contact us</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-6 col-sm-6 col-md-3 mb-3">
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="text-light">Support</a></li>
-                            <li><a href="#" class="text-light">Knowledge base</a></li>
-                            <li><a href="#" class="text-light">Live chat</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-6 col-sm-6 col-md-3 mb-3">
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="text-light">Jobs</a></li>
-                            <li><a href="#" class="text-light">Our team</a></li>
-                            <li><a href="#" class="text-light">Leadership</a></li>
-                            <li><a href="#" class="text-light">Privacy Policy</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-6 col-sm-6 col-md-3 mb-3">
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="text-light">Nordic Chair</a></li>
-                            <li><a href="#" class="text-light">Kruzo Aero</a></li>
-                            <li><a href="#" class="text-light">Ergonomic Chair</a></li>
-                        </ul>
-                    </div>
-                </div>
+            <!-- Contact Info -->
+            <div class="col-md-5 contact-info">
+                <h5>Contact Us</h5>
+                <p><i class="fas fa-envelope"></i><a href="mailto:buyfurn@gmail.com" class="text-light">
+                        buyfurn&#64;gmail.com</a></p>
+                <p><i class="fas fa-phone"></i><a href="tel:+129439253939" class="text-light"> +1 294 3925 3939</a></p>
+                <p><i class="fas fa-map-marker-alt"></i>
+                    <a href="https://www.google.com/maps/search/?api=1&query=123+Raymouth+Rd+Baltemoer+Vasad+388306"
+                        target="_blank" class="text-light">
+                        123 Raymouth Rd. Baltemoer, Vasad 388306
+                    </a>
+                </p>
             </div>
         </div>
-
-        <div class="border-top border-secondary copyright pt-4">
-            <div class="row">
-                <div class="col-lg-6 mb-2 mb-lg-0 text-center text-lg-start">
-                    <p class="mb-0">&copy; {{ currentYear }}. All Rights Reserved.</p>
-                </div>
-                <div class="col-lg-6 text-center text-lg-end">
-                    <ul class="list-unstyled d-inline-flex ms-auto">
-                        <li class="me-4"><a href="#" class="text-light text-decoration-none">Terms &amp; Conditions</a>
-                        </li>
-                        <li><a href="#" class="text-light text-decoration-none">Privacy Policy</a></li>
-                    </ul>
-                </div>
-            </div>
+        <hr class="bg-light">
+        <div class="text-center">
+            <p>&copy; {{currentYear}} BuyFurn. All rights reserved.</p>
         </div>
     </div>
 </footer>
-<!-- End Footer Section -->

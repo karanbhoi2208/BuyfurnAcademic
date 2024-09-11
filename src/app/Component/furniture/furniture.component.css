@@ -1,11 +1,10 @@
 .hero {
     background-color: #3b5d50;
     color: white;
-    height: 50vh;
+    height: 20vh;
     /* Full viewport height */
     display: flex;
     align-items: center;
-    /* Vertical center */
 }
 
 .intro-excerpt h2 {
@@ -43,13 +42,9 @@
     background-color: #ffce09;
 }
 
-input:focus,
-textarea:focus,
-select:focus {
-    /* outline: none; */
+/* input:focus {
     box-shadow: none;
-    border-color: #3b5d50;
-}
+} */
 
 
 

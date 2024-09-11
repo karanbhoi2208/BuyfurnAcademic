@@ -51,3 +51,16 @@
 .text-justify {
     text-align: justify;
 }
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: #ffcc00 !important;
+
+}
+
+.navbar-brand:hover {
+    color: white !important;
+}
