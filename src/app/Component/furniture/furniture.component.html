@@ -1,14 +1,10 @@
-<!-- shop.component.html -->
-<!-- Start Hero Section -->
 <div class="hero">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-5">
-                <div class="intro-excerpt">
-                    <h2>Furniture</h2>
-                </div>
+        <div class="d-flex flex-column flex-md-row justify-content-between ">
+            <div class="intro-excerpt align-items-center">
+                <h2>Furniture</h2>
             </div>
-            <div class="col-lg-7 d-flex justify-content-end search">
+            <div class="search mt-3 mt-md-0">
                 <div class="filter-section input-group">
                     <input type="text" class="form-control" placeholder="Search Product" [(ngModel)]="filterText">
                     <button class="btn" (click)="onSearch()">
@@ -19,8 +15,9 @@
         </div>
     </div>
 </div>
-<!-- End Hero Section -->
 
-<!-- Category Filter Dropdown -->
+
+
+
 
 <app-product-section [filterText]="search"></app-product-section>
