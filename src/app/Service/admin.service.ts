@@ -10,8 +10,8 @@ export class AdminService {
   constructor(private httpClient: HttpClient) { }
 
   // baseUrl: String = "http://localhost:8090/api"
-
-  baseUrl: String = "https://buyfurnbackend-xzhj.onrender.com/api"
+  // http://buyfurn.ap-south-1.elasticbeanstalk.com/swagger-ui/index.html
+  baseUrl: String = "http://buyfurn.ap-south-1.elasticbeanstalk.com/api"
 
   getAllUsers(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/getall`);
