@@ -6,11 +6,10 @@ import { finalize } from 'rxjs';
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const loadingService = inject(LoadingService); // Inject the LoadingService
 
-  const isAdminRequest = req.url.includes('/admin'); // Check if the request is for admin URLs
-  // console.log(isAdminRequest);
+  const stopGlobalLoading = req.url.includes('/admin') || req.url.includes("/login") || req.url.includes("/generate-otp") || req.url.includes("/send-email") || req.url.includes("/verify-otp"); // Check if the request is for admin URLs
 
-  if (!isAdminRequest) {
-    loadingService.showLoading();  // Use the injected service directly
+  if (!stopGlobalLoading) {
+    loadingService.showLoading();
   }
 
   if (typeof localStorage !== 'undefined') {
@@ -24,7 +23,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
       return next(clonedRequest).pipe(
         finalize(() => {
-          if (!isAdminRequest) {
+          if (!stopGlobalLoading) {
             loadingService.hideLoading(); // Hide loader only for non-admin requests
           }
         })
@@ -34,7 +33,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     finalize(() => {
-      if (!isAdminRequest) {
+      if (!stopGlobalLoading) {
         loadingService.hideLoading(); // Hide loader only for non-admin requests
       }
     })
