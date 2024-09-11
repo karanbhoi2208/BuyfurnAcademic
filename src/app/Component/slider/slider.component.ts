@@ -24,18 +24,19 @@ export class SliderComponent {
   slides: Slide[] = [
     {
       imageUrl: '../../../assets/images/couch.png',
-      captionTitle: 'Couch',
-      captionText: 'Some representative'
+      captionTitle: 'Modern Comfort',
+      captionText: 'Timeless Couch Designs'
     },
     {
       imageUrl: '../../../assets/images/product-1.png',
-      captionTitle: 'Nothing',
-      captionText: 'placeholder content for'
+      captionTitle: 'Premium Collection',
+      captionText: 'Elevate Your Living Space'
     },
     {
       imageUrl: '../../../assets/images/product-2.png',
-      captionTitle: 'Couch',
-      captionText: 'the third slide.'
+      captionTitle: 'Crafted for Luxury',
+      captionText: 'Experience True Comfort'
     }
   ];
+
 }
