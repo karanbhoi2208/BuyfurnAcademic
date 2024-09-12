@@ -139,7 +139,6 @@ export class BuyProductComponent implements OnInit {
     let grandTotal = this.calculateGrandTotal()
     this.productService.createTransaction(grandTotal).subscribe(
       response => {
-        // console.log(response);
         this.openTransactionModel(response, orderForm);
       },
       error => {
