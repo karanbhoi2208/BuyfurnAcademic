@@ -73,11 +73,18 @@ export class UserProfileComponent implements OnInit {
               icon: "success"
             }).then(() => {
               this.logout();
+              this.router.navigate(['/']);
             });
-            this.router.navigate(['/']);
+            // window.location.reload()
           },
           error => {
-            console.error(error);
+            // console.error(error);
+            Swal.fire({
+              title: "Error!",
+              text: "There was an issue deleting your account. Please try again!",
+              icon: "error"
+            });
+
           }
         );
       }
