@@ -28,10 +28,6 @@ export class OtpComponent implements OnInit {
   email: any;
   otp: any;
 
-
-
-
-
   user: any = {
     name: '',
     email: '',
