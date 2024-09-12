@@ -33,3 +33,7 @@ select:focus {
     /* border: none; */
     border-color: #3b5d50;
 }
+
+.forgotpassword {
+    cursor: pointer;
+}

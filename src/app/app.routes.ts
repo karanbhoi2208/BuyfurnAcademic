@@ -28,6 +28,7 @@ import { OrdersComponent } from './Admin/orders/orders.component';
 import { MyOrdersComponent } from './Component/my-orders/my-orders.component';
 import { orderGuardGuard } from './Auth/order-guard.guard';
 import { OrderVisualizationComponent } from './Admin/order-visualization/order-visualization.component';
+import { ForgotPasswordComponent } from './Component/forgot-password/forgot-password.component';
 
 export const routes: Routes = [
     {
@@ -86,6 +87,7 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'verify-otp', component: OtpComponent },
+    { path: 'forgot-password', component: ForgotPasswordComponent },
     {
         path: 'admin',
         component: AdminComponent,

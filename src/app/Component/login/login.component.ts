@@ -5,6 +5,9 @@ import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../Service/user.service';
 import { UserAuthService } from '../../Service/user-auth.service';
 import Swal from 'sweetalert2';
+import { EmailService } from '../../Service/email.service';
+import e from 'express';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -23,10 +26,12 @@ export class LoginComponent {
   loginMsg: string = ""
   loginError: boolean = false;
 
-  constructor(private userService: UserService, private router: Router, private userAuthService: UserAuthService) { }
+  constructor(private userService: UserService, private router: Router, private userAuthService: UserAuthService,
+    private emailService: EmailService
+  ) { }
 
   login(): void {
-
+    this.userAuthService.setUserEmail(this.username)
     let authString = 'Basic ' + btoa(this.username.trim() + ':' + this.password);
     this.userAuthService.setBasicAuthString(authString);
 
@@ -68,8 +73,37 @@ export class LoginComponent {
     );
   }
 
+  EmailRequest: any = {
+    to: '',
+    subject: '',
+    text: ''
+  }
 
   forgotPassword() {
-    Swal.fire("This functionality not implemented 😔")
+    this.loginMsg = ""
+    this.userService.generateOtp(this.username.trim()).subscribe(response => {
+      this.loginError = true
+      this.loginMsg = "Email not found."
+    },
+      HttpErrorResponse => {
+
+        if (HttpErrorResponse.status == 302) {
+          this.userAuthService.setUserEmail(this.username.trim())
+          this.EmailRequest.to = this.username.trim();
+          this.EmailRequest.subject = "OTP for varify your email";
+          this.EmailRequest.text = HttpErrorResponse.error;
+          // console.log(this.EmailRequest);
+
+          this.emailService.sendMail(this.EmailRequest).subscribe(mailResponse => {
+          });
+          this.router.navigate(['/forgot-password'])
+        }
+        else {
+          this.loginError = true
+          this.userAuthService.clearLocalStorage()
+        }
+      }
+    );
   }
+
 }
