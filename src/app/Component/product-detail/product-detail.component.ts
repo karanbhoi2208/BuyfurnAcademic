@@ -78,12 +78,30 @@ export class ProductDetailComponent {
   }
 
   buyNow(productId: any) {
+    if (this.product.stockStatus === "In Stock") {
+      this.router.navigate(['/buyproduct'], {
+        queryParams: {
+          isSingleProductCheckout: true,
+          id: productId
+        }
+      })
+    }
+    else if (this.product.stockStatus == "Out of Stock" || this.product.stockStatus == "In Stock soon") {
+      Swal.fire({
+        title: "Out of Stock",
+        text: "This product is not in stock at the moment.",
+        icon: "warning",
+        confirmButtonText: "OK"
+      });
 
-    this.router.navigate(['/buyproduct'], {
-      queryParams: {
-        isSingleProductCheckout: true,
-        id: productId
-      }
-    })
+    }
+    else {
+      Swal.fire({
+        title: "Try again later",
+        icon: "error",
+        confirmButtonText: "OK"
+      });
+
+    }
   }
 }
