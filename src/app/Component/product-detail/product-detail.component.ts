@@ -23,6 +23,7 @@ export class ProductDetailComponent {
   currentSlide: number = 0;
   quantity: number = 1;
   isLoading = true;
+  productNotAvailable: boolean = false
   constructor(private route: ActivatedRoute, private productService: ProductService, private router: Router, private authService: UserAuthService) { }
 
   ngOnInit(): void {
@@ -35,9 +36,19 @@ export class ProductDetailComponent {
             this.isLoading = false;
           },
           error => {
-            console.error('Error fetching product:', error);
-            this.isLoading = false;
+            // console.error('Error fetching product:', error);
 
+            this.isLoading = false;
+            if (error.status === 500) {
+              this.productNotAvailable = true
+            }
+            else {
+              Swal.fire({
+                title: "Try agian!"
+              }
+              )
+              this.router.navigate(['/furniture'])
+            }
           }
         );
       }
