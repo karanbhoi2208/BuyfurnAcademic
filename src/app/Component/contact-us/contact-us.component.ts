@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-contact-us',
@@ -13,7 +14,7 @@ export class ContactUsComponent {
   name: any;
   email: any;
   sendMessage() {
-    throw new Error('Method not implemented.');
+    Swal.fire("This feature is implemented soon..")
   }
 
 }
