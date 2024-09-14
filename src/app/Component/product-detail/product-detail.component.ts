@@ -64,28 +64,16 @@ export class ProductDetailComponent {
   }
 
   addToCart(cartId: any) {
-    const roles = this.authService.getRoles();
 
-    if (roles.includes("ADMIN")) {
-      this.router.navigate(['/forbidden']);
-    }
-    else {
-      const isLoggedIn = this.authService.isLoggedIn()
-      if (isLoggedIn) {
-        this.productService.addToCart(cartId, this.quantity).subscribe(
-          (response) => {
-            Swal.fire("Product added to your cart!")
-          },
-          (error) => {
-            console.log(error);
+    this.productService.addToCart(cartId, this.quantity).subscribe(
+      (response) => {
+        Swal.fire("Product added to your cart!")
+      },
+      (error) => {
+        console.log(error);
 
-          }
-        )
       }
-      else {
-        this.router.navigate(['/login'])
-      }
-    }
+    )
   }
 
   buyNow(productId: any) {
@@ -104,7 +92,6 @@ export class ProductDetailComponent {
         icon: "warning",
         confirmButtonText: "OK"
       });
-
     }
     else {
       Swal.fire({
@@ -116,3 +103,4 @@ export class ProductDetailComponent {
     }
   }
 }
+
