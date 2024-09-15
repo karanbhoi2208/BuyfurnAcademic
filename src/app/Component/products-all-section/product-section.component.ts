@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ProductService } from '../../Service/product.service';
 import { LoadingComponent } from '../loading/loading.component';
 import { NgFor, NgIf } from '@angular/common';
@@ -19,7 +19,7 @@ export class ProductSectionComponent implements OnChanges {
   @Input() filterText: string = '';
   selectedCategory: string = '';
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private router: Router) { }
 
 
   categories: string[] = ['Living Room', 'Bedroom', 'Dining Room', 'Office Furniture', 'Outdoor Furniture', 'Storage Solutions'];
@@ -63,5 +63,13 @@ export class ProductSectionComponent implements OnChanges {
   loadMoreProducts() {
     this.pageNumber++;
     this.getAllProducts();
+  }
+
+  productDetailPage(id: any) {
+    this.router.navigate(['/product'], {
+      queryParams: {
+        productId: id
+      }
+    })
   }
 }
