@@ -1,6 +1,6 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { LoadingService } from './Service/loading.service';
+import { LoadingService } from '../Service/loading.service';
 import { finalize } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
