@@ -36,6 +36,7 @@ export class ProductSectionComponent implements OnChanges {
     this.selectedCategory = (event.target as HTMLSelectElement).value;
     this.pageNumber = 0;
     this.products = [];
+    this.productService.clearCache()
     this.getAllProducts()
 
   }
@@ -43,8 +44,6 @@ export class ProductSectionComponent implements OnChanges {
   getAllProducts() {
     this.productService.getAllProducts(this.pageNumber, this.filterText, this.selectedCategory).subscribe(
       (response) => {
-        // console.log('Backend response:', response);
-
         if (response.length > 0) {
           this.products = [...this.products, ...response];
           this.showLoadButton = response.length === 12;
