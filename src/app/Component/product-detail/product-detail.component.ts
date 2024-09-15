@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../Service/product.service';
-import { response } from 'express';
+import e, { response } from 'express';
 import { error } from 'console';
 import { UserAuthService } from '../../Service/user-auth.service';
 import { LoadingComponent } from '../loading/loading.component';
@@ -27,32 +27,16 @@ export class ProductDetailComponent {
   constructor(private route: ActivatedRoute, private productService: ProductService, private router: Router, private authService: UserAuthService) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.productId = params['id'];
-      if (this.productId) {
-        this.productService.getProductById(this.productId).subscribe(
-          response => {
-            this.product = response;
-            this.isLoading = false;
-          },
-          error => {
-            // console.error('Error fetching product:', error);
-
-            this.isLoading = false;
-            if (error.status === 500) {
-              this.productNotAvailable = true
-            }
-            else {
-              Swal.fire({
-                title: "Try agian!"
-              }
-              )
-              this.router.navigate(['/furniture'])
-            }
-          }
-        );
+    this.route.data.subscribe((response: any) => {
+      if (response && response.productDetails) {
+        this.product = response.productDetails
       }
-    });
+      else {
+        this.productNotAvailable = true
+        this.productService.clearCache()
+      }
+    }
+    )
   }
 
   nextSlide(): void {
@@ -64,19 +48,31 @@ export class ProductDetailComponent {
   }
 
   addToCart(cartId: any) {
+    const roles = this.authService.getRoles()
+    // console.log(roles);
+    if (roles.includes('ADMIN')) {
+      this.router.navigate(['/forbidden'])
+      return
+    }
 
     this.productService.addToCart(cartId, this.quantity).subscribe(
       (response) => {
         Swal.fire("Product added to your cart!")
       },
       (error) => {
-        console.log(error);
 
+        console.log(error);
+        if (error.status == 500) {
+          window.location.reload()
+          this.productService.clearCache()
+        }
       }
     )
   }
 
   buyNow(productId: any) {
+    // console.log(this.product.id);
+
     if (this.product.stockStatus === "In Stock") {
       this.router.navigate(['/buyproduct'], {
         queryParams: {

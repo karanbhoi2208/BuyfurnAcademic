@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { Product } from '../Interface/product';
 import { OrderDetails } from '../Interface/orderdetails';
 
@@ -8,9 +8,6 @@ import { OrderDetails } from '../Interface/orderdetails';
   providedIn: 'root'
 })
 export class ProductService {
-
-  // baseUrl1: String = "https://buyfurnbackend-xzhj.onrender.com/api"
-  // baseUrl: String = "https://buyfurnbackend-xzhj.onrender.com/api/admin"
 
   baseUrl1: String = "https://buyfurnbackend.site/api"
   baseUrl: String = "https://buyfurnbackend.site/api/admin"
@@ -35,11 +32,44 @@ export class ProductService {
     return this.httpclient.post(`${this.baseUrl}/addproduct`, formData);
   }
 
+  private products: Product[] | null = null; // Cached product data
   getAllProducts(pageNumber: number, searchKey: string, category: string): Observable<any> {
-    return this.httpclient.get(`${this.baseUrl1}/getallproducts?pageNumber=${pageNumber}&searchKey=${searchKey}&searchCategory=${category}`);
+    if (this.products) {
+      return of(this.products); // Return cached products
+    }
+    else {
+      return this.httpclient.get(`${this.baseUrl1}/getallproducts?pageNumber=${pageNumber}&searchKey=${searchKey}&searchCategory=${category}`).pipe(
+        map((data: any) => {
+          this.products = data; // Cache the data
+          return data;
+        }), catchError((error) => {
+          console.error('Error fetching products', error);
+          return of([]); // Handle error and return an empty array
+        })
+      );
+    }
   }
+
+
+  private latestProduct: Product[] | null = null; // Cached product data
+
   getLetestProducts(): Observable<any> {
-    return this.httpclient.get(`${this.baseUrl1}/latest`);
+    if (this.latestProduct) {
+      return of(this.latestProduct)
+    }
+    else {
+      return this.httpclient.get(`${this.baseUrl1}/latest`).pipe(
+        map((data: any) => { this.latestProduct = data; return data }), catchError((error) => {
+          console.error('Error fetching products', error);
+          return of([]); // Handle error and return an empty array
+        })
+      );
+
+    }
+  }
+  clearCache() {
+    this.products = null; // Clear cached data
+    this.latestProduct = null;
   }
 
   getProductById(id: any): Observable<any> {
