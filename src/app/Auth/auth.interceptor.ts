@@ -6,7 +6,7 @@ import { finalize } from 'rxjs';
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const loadingService = inject(LoadingService); // Inject the LoadingService
 
-  const stopGlobalLoading = req.url.includes('/admin') || req.url.includes("/login") || req.url.includes("/generate-otp") || req.url.includes("/send-email") || req.url.includes("/verify-otp"); // Check if the request is for admin URLs
+  const stopGlobalLoading = req.url.includes('/admin') || req.url.includes("/generate-otp") || req.url.includes("/send-email") || req.url.includes("/verify-otp"); // Check if the request is for admin URLs
 
   if (!stopGlobalLoading) {
     loadingService.showLoading();
